@@ -8,37 +8,25 @@
 
 import SwiftUI
 
-class User: ObservableObject {
-    @Published var score = 0
-}
-
-struct ChangeView: View {
-    @EnvironmentObject var user: User
-    
-    var body: some View {
-        VStack {
-            Text("Score: \(user.score)")
-            Button("Increase") {
-                self.user.score += 1
-            }
-        }
-    }
-}
-
 struct ContentView: View {
-    @ObservedObject var user = User()
+    @State private var score = 0
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 30) {
-                Text("Score: \(user.score)")
-                
-                NavigationLink(destination: ChangeView()) {
-                    Text("Show Detail View")
-                }
-            }
-            .navigationBarTitle("Navigation")
-        }.environmentObject(user)
+            Text("Score: \(score)")
+                .navigationBarTitle("Navigation")
+                .navigationBarItems(
+                    leading:
+                        Button("Subsctract 1") {
+                            self.score -= 1
+                        },
+                    
+                    trailing:
+                        Button("Add 1") {
+                            self.score += 1
+                        }
+                )
+        }
     }
 }
 
