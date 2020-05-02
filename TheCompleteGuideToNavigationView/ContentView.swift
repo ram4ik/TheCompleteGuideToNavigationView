@@ -8,26 +8,18 @@
 
 import SwiftUI
 
-struct ResultView: View {
-    var choice: String
-    
-    var body: some View {
-        Text("You choise \(choice)")
-    }
-}
-
 struct ContentView: View {
+    @State private var isShowingDetailView = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                Text("You're going to flip a coin - do you want to choose  heads or tails?")
-                
-                NavigationLink(destination: ResultView(choice: "Heads")) {
-                    Text("Choose Heads")
+                NavigationLink(destination: Text("Second View"), isActive: $isShowingDetailView) {
+                    EmptyView()
                 }
                 
-                NavigationLink(destination: ResultView(choice: "Tails")) {
-                    Text("Choose Tails")
+                Button("Tap to show detail") {
+                    self.isShowingDetailView = true
                 }
             }
             .navigationBarTitle("Navigation", displayMode: .automatic)
