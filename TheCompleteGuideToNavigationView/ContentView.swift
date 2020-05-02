@@ -8,11 +8,23 @@
 
 import SwiftUI
 
+struct ResultView: View {
+    var choice: String
+    
+    var body: some View {
+        Text("You choise \(choice)")
+    }
+}
+
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            Text("Hello, World!")
-             .navigationBarTitle("Navigation")
+            NavigationLink(destination: Text("Second View")) {
+                //Text("Hello, World!")
+                Image("camera")
+                    .renderingMode(.original)
+            }
+            .navigationBarTitle("Navigation", displayMode: .automatic)
         }
     }
 }
