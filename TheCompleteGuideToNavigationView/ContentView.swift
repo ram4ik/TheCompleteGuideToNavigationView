@@ -17,11 +17,16 @@ struct ContentView: View {
                 NavigationLink(destination: Text("Second View"), tag: "Second", selection: $selection) {
                     EmptyView()
                 }
+                
                 NavigationLink(destination: Text("Third View"), tag: "Third", selection: $selection) {
                     EmptyView()
                 }
                 
-                Button("Tap to show detail") {
+                Button("Tap to show Second detail") {
+                    self.selection = "Second"
+                }
+                
+                Button("Tap to show Third detail") {
                     self.selection = "Third"
                 }
             }
