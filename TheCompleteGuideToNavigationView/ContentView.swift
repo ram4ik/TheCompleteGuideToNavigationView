@@ -9,25 +9,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection: String? = nil
+    @State private var isShowingDetailView = false
     
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                NavigationLink(destination: Text("Second View"), tag: "Second", selection: $selection) {
+                NavigationLink(destination: Text("Second View"), isActive: $isShowingDetailView) {
                     EmptyView()
                 }
                 
-                NavigationLink(destination: Text("Third View"), tag: "Third", selection: $selection) {
-                    EmptyView()
-                }
-                
-                Button("Tap to show Second detail") {
-                    self.selection = "Second"
-                }
-                
-                Button("Tap to show Third detail") {
-                    self.selection = "Third"
+                Button("Tap to show detail") {
+                    self.isShowingDetailView = true
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.isShowingDetailView = false
+                    }
                 }
             }
             .navigationBarTitle("Navigation", displayMode: .automatic)
