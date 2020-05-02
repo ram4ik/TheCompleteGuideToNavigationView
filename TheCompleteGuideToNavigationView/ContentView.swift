@@ -8,26 +8,37 @@
 
 import SwiftUI
 
+class User: ObservableObject {
+    @Published var score = 0
+}
+
+struct ChangeView: View {
+    @EnvironmentObject var user: User
+    
+    var body: some View {
+        VStack {
+            Text("Score: \(user.score)")
+            Button("Increase") {
+                self.user.score += 1
+            }
+        }
+    }
+}
+
 struct ContentView: View {
-    @State private var isShowingDetailView = false
+    @ObservedObject var user = User()
     
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                NavigationLink(destination: Text("Second View"), isActive: $isShowingDetailView) {
-                    EmptyView()
-                }
+                Text("Score: \(user.score)")
                 
-                Button("Tap to show detail") {
-                    self.isShowingDetailView = true
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self.isShowingDetailView = false
-                    }
+                NavigationLink(destination: ChangeView()) {
+                    Text("Show Detail View")
                 }
             }
-            .navigationBarTitle("Navigation", displayMode: .automatic)
-        }
+            .navigationBarTitle("Navigation")
+        }.environmentObject(user)
     }
 }
 
